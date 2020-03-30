@@ -1,0 +1,11 @@
+<div *ngIf="videos.length > 0">
+
+    <div class="row" [sortablejs]="videos" [sortablejsOptions]="eventOptions">
+        <app-video-item class="col-md-4 mb-4" *ngFor="let video of videos" [video]="video"></app-video-item>
+    </div>
+</div>
+<div *ngIf="videos.length ==0">
+    <div class="alert alert-danger">
+        No result!
+    </div>
+</div>

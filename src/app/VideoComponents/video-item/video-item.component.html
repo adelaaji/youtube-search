@@ -1,0 +1,12 @@
+<div class="card h-100 p-3">
+    <img class="card-img-top " src="{{video.imageUrl}}">
+    <div class="card-body p-0">
+
+        <p class="card-title text-success p-2 m-0">
+            {{video.title}}
+        </p>
+
+        <hr>
+        <app-input-edit [data]='note' (focusOut)='saveNote($event, video)'></app-input-edit>
+    </div>
+</div>
