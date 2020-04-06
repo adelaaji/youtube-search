@@ -21,3 +21,9 @@ export class UpdateUserNote {
 
   constructor(public payload: Video) {}
 }
+
+export class PlayVideo {
+  static readonly type = "[Video] play";
+
+  constructor(public payload: string) {}
+}

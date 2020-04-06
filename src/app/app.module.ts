@@ -11,17 +11,24 @@ import { VideoState } from "./VideoStore/states/video.state";
 import { VideoFormComponent } from "./VideoComponents/video-form/video-form.component";
 import { VideoListComponent } from "./VideoComponents/video-list/video-list.component";
 import { SortablejsModule } from "ngx-sortablejs";
+//import { NgxYoutubePlayerModule } from "ngx-youtube-player";
 import { VideoItemComponent } from "./VideoComponents/video-item/video-item.component";
 import { InputEditComponent } from "./VideoComponents/input-edit/input-edit.component";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgxPaginationModule } from "ngx-pagination";
+
+import { YouTubePlayerModule } from "@angular/youtube-player";
+import { VideoPlayerComponent } from "./components/video-player/video-player.component";
+
 @NgModule({
   declarations: [
     AppComponent,
     VideoFormComponent,
     VideoListComponent,
     VideoItemComponent,
-    InputEditComponent
+    InputEditComponent,
+    VideoPlayerComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,15 +37,18 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     AppRoutingModule,
     FormsModule,
+    //NgxYoutubePlayerModule.forRoot(),
     BrowserAnimationsModule,
+    YouTubePlayerModule,
     SimpleNotificationsModule.forRoot(),
     SortablejsModule.forRoot({
-      animation: 200
-    })
+      animation: 1000,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

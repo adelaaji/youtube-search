@@ -7,7 +7,8 @@ import { HttpClient } from "@angular/common/http";
 export class VideoService {
   apiKey = "AIzaSyBEZt9r7g2awZhT5028t6JVmPwByj9BhsY";
   getUrl = (channelName, apiKey) => {
-    return `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelName}&part=snippet,id&order=date&maxResults=${20}`;
+    //&maxResults=${20}
+    return `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelName}&part=snippet,id&order=date&maxResults=${50}`;
   };
   constructor(private http: HttpClient) {}
 

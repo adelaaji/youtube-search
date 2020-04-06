@@ -2,13 +2,16 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Video } from "src/app/VideoStore/models/Video";
 import { SortablejsOptions } from "ngx-sortablejs";
 import { Store } from "@ngxs/store";
-import { UpdateUserNote } from "src/app/VideoStore/actions/Video.action";
+import {
+  UpdateUserNote,
+  PlayVideo,
+} from "src/app/VideoStore/actions/Video.action";
 import { NotificationsService, NotificationType } from "angular2-notifications";
 
 @Component({
   selector: "app-video-item",
   templateUrl: "./video-item.component.html",
-  styleUrls: ["./video-item.component.scss"]
+  styleUrls: ["./video-item.component.scss"],
 })
 export class VideoItemComponent implements OnInit {
   @Input() video: Video;
@@ -20,7 +23,6 @@ export class VideoItemComponent implements OnInit {
   note: string;
 
   saveNote(value, video) {
-    console.log("Value", value, video);
     video.userNote = value;
     this.store.dispatch(new UpdateUserNote(video));
 
@@ -31,21 +33,19 @@ export class VideoItemComponent implements OnInit {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
-      clickToClose: true
+      clickToClose: true,
     });
   }
 
+  playVideo(value, video) {
+    this.store.dispatch(new PlayVideo(video.id));
+  }
+
   eventOptions: SortablejsOptions = {
-    onUpdate: e => {
-      console.log("Event", e);
-    }
+    onUpdate: (e) => {},
   };
 
   ngOnInit() {
-    console.log("this.video.userNote", this.video.userNote);
-    this.note =
-      this.video.userNote != ""
-        ? this.video.userNote
-        : "click here to add a note!";
+    this.note = this.video.userNote;
   }
 }

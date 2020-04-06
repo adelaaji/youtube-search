@@ -23,6 +23,7 @@ export class VideoListComponent implements OnInit {
   ) {}
 
   eventOptions: SortablejsOptions = {
+    animation: 600,
     onUpdate: event => {
       this.store.dispatch(new ReorderVideosList(this.videos));
       this._notifications.create(

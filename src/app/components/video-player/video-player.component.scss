@@ -1,0 +1,39 @@
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(120px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.video-block {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 480px;
+  height: 330px;
+  padding: 15px;
+  box-shadow: 1px 1px 8px rgba(#000, 0.5);
+  background-color: #222;
+  animation: 0.2s ease slideInFromBottom;
+  z-index: 9999;
+  border-radius: 5px;
+
+  .close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    text-align: center;
+    padding-top: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 0.4;
+    background-color: red;
+    left: -7px;
+    top: -7px;
+    border-radius: 30px;
+    opacity: 1;
+  }
+}

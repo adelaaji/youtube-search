@@ -5,11 +5,13 @@ import {
   Getvideos,
   GetVideosList,
   ReorderVideosList,
-  UpdateUserNote
+  UpdateUserNote,
+  PlayVideo,
 } from "../actions/Video.action";
 import { VideoService } from "../service/video.service";
 
 export class VideoStateModel {
+  videoToPlay: string;
   channelId: string;
   channelVideos: Video[];
 }
@@ -17,9 +19,10 @@ export class VideoStateModel {
 @State<VideoStateModel>({
   name: "channelVideos",
   defaults: {
+    videoToPlay: "",
     channelId: "",
-    channelVideos: []
-  }
+    channelVideos: [],
+  },
 })
 export class VideoState {
   constructor(private videoService: VideoService) {}
@@ -35,9 +38,8 @@ export class VideoState {
   ) {
     let videoArray = [];
     return this.videoService.fetchvideosByChannelId(params.payload).pipe(
-      tap(result => {
-        console.log("The result", result);
-        result["items"].forEach(element => {
+      tap((result) => {
+        result["items"].forEach((element) => {
           let video = new Video();
           video.id = element.id.videoId;
           video.imageUrl = element.snippet.thumbnails.high.url;
@@ -55,7 +57,7 @@ export class VideoState {
         setState({
           ...state,
           channelVideos: videoArray,
-          channelId: params.payload
+          channelId: params.payload,
         });
       })
     );
@@ -67,9 +69,14 @@ export class VideoState {
     if (localStorage.getItem("channelVideos") != null) {
       videos = JSON.parse(localStorage.getItem("channelVideos"));
     }
-    console.log("videos", videos);
     return videos;
   }
+
+  @Selector()
+  static getVideoToPlayId(state: VideoStateModel) {
+    return state.videoToPlay;
+  }
+
   @Selector()
   static getchannelName(state: VideoStateModel) {
     let channelId = "";
@@ -86,7 +93,6 @@ export class VideoState {
     if (localStorage.getItem("channelVideos") != null) {
       videos = JSON.parse(localStorage.getItem("channelVideos"));
     }
-    console.log("videos", videos);
     return videos;
   }
 
@@ -104,11 +110,10 @@ export class VideoState {
     params
   ) {
     const state = getState();
-    console.log("reorder videos", params.payload);
     localStorage.setItem("channelVideos", JSON.stringify(params.payload));
     setState({
       ...state,
-      channelVideos: params.payload
+      channelVideos: params.payload,
     });
   }
 
@@ -118,23 +123,30 @@ export class VideoState {
     params
   ) {
     const state = getState();
-    console.log("updated videos", params.payload);
     let videos = state.channelVideos;
     if (localStorage.getItem("channelVideos") != null) {
       videos = JSON.parse(localStorage.getItem("channelVideos"));
     }
 
-    videos.map(vid => {
+    videos.map((vid) => {
       if (vid.id == params.payload.id) {
         vid.userNote = params.payload.userNote;
       }
     });
-    console.log("updated list", videos);
 
     localStorage.setItem("channelVideos", JSON.stringify(videos));
     setState({
       ...state,
-      channelVideos: videos
+      channelVideos: videos,
+    });
+  }
+
+  @Action(PlayVideo)
+  playVideoById({ getState, setState }: StateContext<VideoStateModel>, params) {
+    const state = getState();
+    setState({
+      ...state,
+      videoToPlay: params.payload,
     });
   }
 }

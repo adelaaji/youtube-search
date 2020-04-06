@@ -1,0 +1,11 @@
+<!-- <youtube-player *ngIf="id != ''" [videoId]="id" (ready)="savePlayer($event)" (change)="onStateChange($event)">
+</youtube-player> -->
+
+<div *ngIf="id != ''">
+    <div class="video-block">
+        <span class="close" (click)='closeVideo()'>x</span>
+        <youtube-player autoplay="1" [videoId]="id" suggestedQuality="highres" [height]="300" [width]="450"
+            (ready)="videoReady($event)">
+        </youtube-player>
+    </div>
+</div>

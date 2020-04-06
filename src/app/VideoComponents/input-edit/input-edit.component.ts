@@ -8,10 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 export class InputEditComponent implements OnInit {
   @Input() data: string;
   @Output() focusOut: EventEmitter<string> = new EventEmitter<string>();
+
   editMode = false;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.editMode = this.data == "" ? true : false;
+  }
 
   onFocusOut() {
     this.focusOut.emit(this.data);
